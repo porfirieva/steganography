@@ -2,6 +2,7 @@
 # Текстовое сообщение должно быть восстановлено без ошибок.
 # Из предыдущего шага мы должны знать путь до изображения со встроенным текстом, номер бита, в который
 # происходило встраивание и количество встроенных бит
+# Результат сохранен в папку ./3_result/extracted_message.txt
 
 from PIL import Image
 from pathlib import Path
@@ -59,7 +60,7 @@ def main():
         bytes_data.append(int(byte, 2))
 
     # Сохраняем результат
-    output_path = Path(image_path).parent / "extracted_message.txt"
+    output_path = Path('./3_result') / "extracted_message.txt"
     with open(output_path, 'wb') as f:
         f.write(bytes_data)
 
