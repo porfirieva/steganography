@@ -13,8 +13,6 @@
 from PIL import Image
 from pathlib import Path
 
-from constants import SETS_PATH
-
 bit_number = int(input("Введите номер бита для замены (1-8): "))
 
 if not 1 <= bit_number <= 8:
@@ -32,7 +30,7 @@ if not binary_text_array:
     print("Файл сообщения пуст.")
     exit()
 
-file = Path(SETS_PATH + input(f"Введите путь к контейнеру: {SETS_PATH}"))
+file = Path('./' + input(f"Введите путь к контейнеру: ./"))
 if not file.is_file() or not file.suffix.lower() in ['.bmp', '.png', '.jpg', '.jpeg', '.tiff']:
     exit()
 

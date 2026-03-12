@@ -16,7 +16,7 @@
 from PIL import Image
 from pathlib import Path
 
-from constants import SET_MESSAGE, SETS_PATH
+from constants import SET_MESSAGE
 
 set_number = input(SET_MESSAGE)
 bit_number = int(input('Задайте номер бита: '))
@@ -25,7 +25,7 @@ if not 0 < bit_number < 9:
     print('Задан некорректный номер бита')
     exit()
 
-folder_path = Path(SETS_PATH + 'Set' + set_number)
+folder_path = Path('./' + 'Set' + set_number)
 
 output_folder = Path(f"./1_result/Set{set_number}/")
 output_folder.mkdir(parents=True, exist_ok=True)
