@@ -18,22 +18,23 @@ from pathlib import Path
 
 from constants import SET_MESSAGE
 
-set_number = input(SET_MESSAGE)
-bit_number = int(input('Задайте номер бита: '))
+def main():
+    set_number = input(SET_MESSAGE)
+    bit_number = int(input('Задайте номер бита: '))
 
-if not 0 < bit_number < 9:
-    print('Задан некорректный номер бита')
-    exit()
+    if not 0 < bit_number < 9:
+        print('Задан некорректный номер бита')
+        exit()
 
-folder_path = Path('./' + 'Set' + set_number)
+    folder_path = Path('./' + 'Set' + set_number)
 
-output_folder = Path(f"./1_result/Set{set_number}/")
-output_folder.mkdir(parents=True, exist_ok=True)
+    output_folder = Path(f"./1_result/Set{set_number}/")
+    output_folder.mkdir(parents=True, exist_ok=True)
 
-file_count = 0  # Счётчик обработанных файлов
-for file in folder_path.iterdir():
-    if file_count >= 5:  # Если обработали 5 файлов - выходим из цикла
-        break
+    file_count = 0  # Счётчик обработанных файлов
+    for file in folder_path.iterdir():
+        if file_count >= 5:  # Если обработали 5 файлов - выходим из цикла
+            break
 
     image = Image.open(file).copy()
     image_matrix = image.load()
@@ -58,3 +59,5 @@ for file in folder_path.iterdir():
     print(f"Сохранен файл: {output_path}")  # Для отслеживания процесса
 
 
+if __name__ == "__main__":
+    main()
