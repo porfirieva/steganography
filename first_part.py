@@ -31,32 +31,26 @@ def main():
     output_folder = Path(f"./1_result/Set{set_number}/")
     output_folder.mkdir(parents=True, exist_ok=True)
 
-    file_count = 0  # Счётчик обработанных файлов
     for file in folder_path.iterdir():
-        if file_count >= 5:  # Если обработали 5 файлов - выходим из цикла
-            break
+        image = Image.open(file).copy()
+        image_matrix = image.load()
+        stem_name = file.stem
 
-    image = Image.open(file).copy()
-    image_matrix = image.load()
-    stem_name = file.stem
+        for i in range(image.width):
+            for j in range(image.height):
+                pixel_value = int(image_matrix[i, j])
+                binary_pixel_value = format(pixel_value, '08b')
 
+                if binary_pixel_value[8 - bit_number] == '0':
+                    image_matrix[i, j] = 0
+                else:
+                    image_matrix[i, j] = 255
 
-    for i in range(image.width):
-        for j in range(image.height):
-            pixel_value = int(image_matrix[i, j])
-            binary_pixel_value = format(pixel_value, '08b')
+        output_filename = f"converted_{stem_name}_bit{bit_number}.bmp"
+        output_path = output_folder / output_filename
+        image.save(output_path, "BMP")
 
-            if binary_pixel_value[8 - bit_number] == '0':
-                image_matrix[i, j] = 0
-            else:
-                image_matrix[i, j] = 255
-
-    output_filename = f"converted_{stem_name}_bit{bit_number}.bmp"
-    output_path = output_folder / output_filename
-    image.save(output_path, "BMP")
-    file_count += 1
-
-    print(f"Сохранен файл: {output_path}")  # Для отслеживания процесса
+        print(f"Сохранен файл: {output_path}")  # Для отслеживания процесса
 
 
 if __name__ == "__main__":

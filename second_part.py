@@ -13,8 +13,8 @@
 from PIL import Image
 from pathlib import Path
 
-def main():
-    bit_number = int(input("Введите номер бита для замены (1-8): "))
+def main(img_path = None, bit = None, output_folder = None):
+    bit_number = bit if bit else int(input("Введите номер бита для замены (1-8): "))
 
     if not 1 <= bit_number <= 8:
         print('Задан некорректный номер бита')
@@ -31,7 +31,7 @@ def main():
         print("Файл сообщения пуст.")
         exit()
 
-    file = Path('./' + input(f"Введите путь к контейнеру: ./"))
+    file = img_path if img_path else Path('./' + input(f"Введите путь к контейнеру: ./"))
     if not file.is_file() or not file.suffix.lower() in ['.bmp', '.png', '.jpg', '.jpeg', '.tiff']:
         exit()
 
@@ -64,7 +64,7 @@ def main():
             break
 
     # Сохраняем результат
-    output_folder = Path("./2_result")
+    output_folder = output_folder if output_folder else Path("./2_result")
     output_folder.mkdir(parents=True, exist_ok=True)
     output_path = output_folder / f"{file.stem}_bit{bit_number}.bmp"
     image.save(output_path)
